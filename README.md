@@ -28,6 +28,9 @@ git clone https://github.com/matiashenao/whichsystem
 # Acceder al directorio
 cd whichsystem
 
+# Asignar permisos de ejecución al script
+chmod +x whichhost.py
+
 # Ejecución
 python3 whichsystem.py <ip_objetivo>
 ```
