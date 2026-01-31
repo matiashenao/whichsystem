@@ -8,7 +8,7 @@ def get_info(ip):
     try:
         ping = subprocess.check_output(f"ping -c 1 -W 2 {ip}", shell=True).decode()
         ttl = int(re.search(r"ttl=(\d+)", ping).group(1))
-        os = f"{G}Linux" if ttl <= 64 else f"{C}Windows" if ttl <= 128 else "Unknown"
+        os = f"{G}Linux" if ttl <= 64 else f"{C}Windows" if ttl <= 128 else f"{Y}Network Device (Cisco/Solaris/BSDs)"
         return ttl, os
     except:
         return None, f"{R}Unreachable"
