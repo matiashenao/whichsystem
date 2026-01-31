@@ -2,13 +2,15 @@
 import subprocess, re, sys
 
 # Hacknet Minimal Theme
-C, G, R, E, B = '\033[96m', '\033[92m', '\033[91m', '\033[0m', '\033[1m'
+# Se añade 'Y' para el color amarillo que usas abajo
+C, G, R, E, B, Y = '\033[96m', '\033[92m', '\033[91m', '\033[0m', '\033[1m', '\033[93m'
 
 def get_info(ip):
     try:
         ping = subprocess.check_output(f"ping -c 1 -W 2 {ip}", shell=True).decode()
         ttl = int(re.search(r"ttl=(\d+)", ping).group(1))
-        os = f"{G}Linux" if ttl <= 64 else f"{C}Windows" if ttl <= 128 else f"{Y}Network Device (Cisco/Solaris/BSDs)"
+        # Ajuste de lógica para detectar el TTL 255
+        os = f"{G}Linux" if ttl <= 64 else f"{C}Windows" if ttl <= 128 else f"{Y}Network Device (Cisco/Solaris/BSDs)" if ttl <= 255 else "Unknown"
         return ttl, os
     except:
         return None, f"{R}Unreachable"
